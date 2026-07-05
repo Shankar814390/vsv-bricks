@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Bricks</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <nav>
+        <h1>VSV BRICKS</h1>
+
+        <ul>
+            <li><a href="index.html">HOME</a></li>
+            <li><a href="gallery.html">GALLERY</a></li>
+            <li><a href="about.html">ABOUT US</a></li>
+            <li><a href="bricks.html">OUR BRICKS</a></li>
+            <li><a href="contact.html">CONTACT US</a></li>
+            <li><a href="order.html">ORDER NOW</a></li>
+        </ul>
+    </nav>
+
+    <div class="bbb">
+
+        <div class="order-container">
+
+            <h2>Place Your Order</h2>
+
+            <form id="orderForm">
+
+                <input
+                    type="text"
+                    id="name"
+                    placeholder="Full Name"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="phone"
+                    placeholder="Phone Number"
+                    required
+                >
+
+                <input
+                    type="text"
+                    id="address"
+                    placeholder="Address"
+                    required
+                >
+
+                <input
+                    type="number"
+                    id="bricks"
+                    placeholder="Number Of Bricks"
+                    required
+                >
+
+                <button type="submit">
+                    Submit Order
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <script>
+document.getElementById("orderForm")
+.addEventListener("submit", async function(e){
+
+    e.preventDefault();
+
+    const orderData = {
+        name: document.getElementById("name").value,
+        phone: document.getElementById("phone").value,
+        address: document.getElementById("address").value,
+        bricks: document.getElementById("bricks").value
+    };
+
+    try {
+
+        const response = await fetch(
+            "http://localhost:5000/api/order",
+            {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(orderData)
+            }
+        );
+
+        console.log("Status:", response.status);
+
+        const text = await response.text();
+
+        console.log("Response:", text);
+
+        alert(text);
+
+    } catch(error) {
+
+        console.error(error);
+
+        alert(error.message);
+
+    }
+
+});
+</script>
+
+</body>
+</html>
